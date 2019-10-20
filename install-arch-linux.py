@@ -274,7 +274,7 @@ def _configure_network(root):
         '[Match]',
         f'Name={default_interface}',
         '',
-        f'[Network]',
+        '[Network]',
         'DHCP=ipv4'
     ]
 
@@ -345,7 +345,7 @@ def _configure_system(configuration: Configuration, root: str):
         'title    Arch Linux',
         'linux    /vmlinuz-linux',
         'initrd   /initramfs-linux.img',
-        f'options  rw'
+        'options  rw'
     ]
 
     for arch_linux_entry_line in arch_linux_entry:
@@ -353,7 +353,7 @@ def _configure_system(configuration: Configuration, root: str):
 
     # Create user.
 
-    _run('arch-chroot', root, 'useradd', f'-c', configuration.user_full_name, '-m', configuration.user_name)
+    _run('arch-chroot', root, 'useradd', '-c', configuration.user_full_name, '-m', configuration.user_name)
     _run('arch-chroot', root, 'usermod', '-aG', 'wheel', configuration.user_name)
     _run('arch-chroot', root, 'sed', '-E', '-i', r's/^#\s*(%wheel.*NOPASSWD.*)/\1/', '/etc/sudoers')
 
