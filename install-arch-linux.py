@@ -355,7 +355,7 @@ def _configure_system(configuration: Configuration, root: str):
 
     _run('arch-chroot', root, 'useradd', '-c', configuration.user_full_name, '-m', configuration.user_name)
     _run('arch-chroot', root, 'usermod', '-aG', 'wheel', configuration.user_name)
-    _run('arch-chroot', root, 'sed', '-E', '-i', r's/^#\s*(%wheel.*NOPASSWD.*)/\1/', '/etc/sudoers')
+    _run('sed', '-E', '-i', r's/^#\s*(%wheel.*NOPASSWD.*)/\1/', os.path.join(root, 'etc/sudoers'))
 
     password_line = f'{configuration.user_name}:{configuration.user_password}'
 
